@@ -16,6 +16,8 @@ RUN apt-get update && apt-get install -y \
     libssl1.0.0:i386 \
     lib32stdc++6 \
     lib32gcc1 \
+    gcc-multilib \
+    g++-multilib \
     curl && \
     apt-get -y upgrade && \
     apt-get clean autoclean && \
@@ -36,7 +38,9 @@ RUN cd $STEAMCMD_DIR && \
         tar zxf steamcmd_linux.tar.gz && \
         rm steamcmd_linux.tar.gz
 
+# Linking libs n ting
 RUN ln -s $STEAMCMD_DIR/linux32 $STEAM_HOME_DIR/.steam/sdk32
+ENV LD_LIBRARY_PATH=$STEAMCMD_DIR/linux32:$LD_LIBRARY_PATH
 
 ENV PATH=$PATH:$STEAMCMD_DIR:$STEAMCMD_DIR/linux32
 VOLUME $STEAMCMD_DIR
