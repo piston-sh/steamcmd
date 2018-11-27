@@ -1,7 +1,7 @@
 FROM debian:stretch
 LABEL maintainer="admin@deniscraig.com"
 
-ENV STEAMCMD_DIR=/steamcmd
+ENV STEAMCMD_DIR=/home/steam/steamcmd
 ENV STEAM_HOME_DIR=/home/steam
 
 # We need access to i386 arch 32-bit binaries required by srcds_run
@@ -25,8 +25,8 @@ RUN apt-get update && apt-get install -y \
     rm -rf /var/lib/{apt,dpkg,cache,log}/
 
 RUN useradd steam && adduser steam steam
-RUN mkdir -p $STEAMCMD_DIR && chown steam:steam $STEAMCMD_DIR
 RUN mkdir -p $STEAM_HOME_DIR && chown steam:steam $STEAM_HOME_DIR
+RUN mkdir -p $STEAMCMD_DIR && chown steam:steam $STEAMCMD_DIR
 USER steam
 RUN mkdir -p $STEAM_HOME_DIR/.steam
 
@@ -45,4 +45,4 @@ ENV LD_LIBRARY_PATH=$STEAMCMD_DIR/linux32:$LD_LIBRARY_PATH
 ENV PATH=$PATH:$STEAMCMD_DIR:$STEAMCMD_DIR/linux32
 VOLUME $STEAMCMD_DIR
 WORKDIR $STEAMCMD_DIR
-ENTRYPOINT [ "steamcmd" ]
+ENTRYPOINT [ "steamcmd.sh" ]
