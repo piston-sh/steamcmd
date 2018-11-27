@@ -12,7 +12,10 @@ RUN apt-get update && apt-get install -y \
     lib32stdc++6 \
     lib32gcc1 \
     curl && \
-    apt-get -y upgrade
+    apt-get -y upgrade && \
+    apt-get clean autoclean && \
+    apt-get autoremove -y && \
+    rm -rf /var/lib/{apt,dpkg,cache,log}/
 
 RUN useradd steam && adduser steam steam
 RUN mkdir -p $STEAMCMD_DIR && chown steam:steam $STEAMCMD_DIR
@@ -29,15 +32,6 @@ RUN cd $STEAMCMD_DIR && \
         rm steamcmd_linux.tar.gz
 
 RUN ln -s $STEAMCMD_DIR/linux32 $STEAM_HOME_DIR/.steam/sdk32
-
-USER root
-RUN apt-get remove -y curl && \
-    apt-get clean autoclean \
-    apt-get clean autoclean && \
-    apt-get autoremove -y && \
-    rm -rf /var/lib/{apt,dpkg,cache,log}/
-
-USER steam
 
 ENV PATH=$PATH:$STEAMCMD_DIR:$STEAMCMD_DIR/linux32
 VOLUME $STEAMCMD_DIR
