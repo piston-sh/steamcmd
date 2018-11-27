@@ -4,11 +4,16 @@ LABEL maintainer="admin@deniscraig.com"
 ENV STEAMCMD_DIR=/steamcmd
 ENV STEAM_HOME_DIR=/home/steam
 
+# We need access to i386 arch 32-bit binaries required by srcds_run
+COPY debian/sources.list /etc/apt/sources.list
+RUN dpkg --add-architecture i386
+
 # Install, update & upgrade packages
 # Create user for the server
 # This also creates the home directory we later need
 # Clean TMP, apt-get cache and other stuff to make the image smaller
 RUN apt-get update && apt-get install -y \
+    libssl1.0.0:i386 \
     lib32stdc++6 \
     lib32gcc1 \
     curl && \
