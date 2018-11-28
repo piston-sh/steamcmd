@@ -13,6 +13,8 @@ RUN apt-get update && apt-get install -y \
     lib32ncurses5 \
     libssl1.0.0:i386 \
     lib32stdc++6 \
+    lib32stdc++6:i386 \
+    libcurl4-gnutls-dev:i386 \
     lib32gcc1 \
     gcc-multilib \
     g++-multilib \
