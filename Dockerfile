@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y \
     libssl1.0.0:i386 \
     lib32stdc++6 \
     libcurl4-gnutls-dev:i386 \
+    libldap-2.4-2:i386 \
     lib32z1 \
     lib32gcc1 \
     gcc-multilib \
