@@ -8,10 +8,6 @@ ENV STEAM_HOME_DIR=/home/steam
 COPY debian/sources.list /etc/apt/sources.list
 RUN dpkg --add-architecture i386
 
-# Install, update & upgrade packages
-# Create user for the server
-# This also creates the home directory we later need
-# Clean TMP, apt-get cache and other stuff to make the image smaller
 RUN apt-get update && apt-get install -y \
     lib32tinfo5 \
     lib32ncurses5 \
@@ -32,9 +28,7 @@ RUN mkdir -p $STEAMCMD_DIR && chown steam:steam $STEAMCMD_DIR
 USER steam
 RUN mkdir -p $STEAM_HOME_DIR/.steam
 
-# Create Directory for SteamCMD
 # Download SteamCMD
-# Extract and delete archive
 RUN cd $STEAMCMD_DIR && \
         curl -o steamcmd_linux.tar.gz "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz" && \
         tar zxf steamcmd_linux.tar.gz && \
