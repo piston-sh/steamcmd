@@ -9,12 +9,13 @@ COPY debian/sources.list /etc/apt/sources.list
 RUN dpkg --add-architecture i386
 
 RUN apt-get update && apt-get install -y \
+    software-properties-common \
     lib32tinfo5 \
     lib32ncurses5 \
     libssl1.0.0:i386 \
     lib32stdc++6 \
-    lib32stdc++6:i386 \
     libcurl4-gnutls-dev:i386 \
+    lib32z1 \
     lib32gcc1 \
     gcc-multilib \
     g++-multilib \
