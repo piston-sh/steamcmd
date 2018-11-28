@@ -16,6 +16,7 @@ RUN apt-get update && apt-get install -y \
     lib32gcc1 \
     gcc-multilib \
     g++-multilib \
+    gdb \
     curl && \
     apt-get -y upgrade && \
     apt-get clean autoclean && \
