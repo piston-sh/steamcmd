@@ -13,6 +13,8 @@ RUN dpkg --add-architecture i386
 # This also creates the home directory we later need
 # Clean TMP, apt-get cache and other stuff to make the image smaller
 RUN apt-get update && apt-get install -y \
+    lib32tinfo5 \
+    lib32ncurses5 \
     libssl1.0.0:i386 \
     lib32stdc++6 \
     lib32gcc1 \
