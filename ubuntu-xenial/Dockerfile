@@ -1,11 +1,13 @@
-FROM ubuntu:xenial
+FROM 32bit/ubuntu:16.04
 LABEL maintainer="admin@deniscraig.com"
 
 ENV STEAMCMD_DIR=/home/steam/steamcmd
 ENV STEAM_HOME_DIR=/home/steam
 
 RUN apt-get update && apt-get install -y \
-    lib32gcc1 \
+    libstdc++6 \
+    libcurl3-gnutls \
+    libncurses5 \
     curl && \
     apt-get -y upgrade && \
     apt-get clean autoclean && \
