@@ -9,9 +9,6 @@ RUN apt-get update && apt-get install -y \
     libcurl3-gnutls \
     libncurses5 \
     curl && \
-    apt-get -y upgrade && \
-    apt-get clean autoclean && \
-    apt-get autoremove -y && \
     rm -rf /var/lib/{apt,dpkg,cache,log}/
 
 RUN useradd steam && adduser steam steam
