@@ -1,0 +1,37 @@
+services:
+  - docker
+
+script:
+  - pushd ubuntu-trusty
+  - docker build --build-arg steam_username=$STEAM_USERNAME --build-arg steam_password=$STEAM_PASSWORD -t sourceforts/steamcmd:ubuntu-trusty-$TRAVIS_BUILD_NUMBER .
+  - docker tag sourceforts/steamcmd:ubuntu-trusty-$TRAVIS_BUILD_NUMBER -t sourceforts/steamcmd:ubuntu-trusty
+  - docker tag sourceforts/steamcmd:ubuntu-trusty-$TRAVIS_BUILD_NUMBER -t sourceforts/steamcmd:ubuntu
+  - docker tag sourceforts/steamcmd:ubuntu-trusty-$TRAVIS_BUILD_NUMBER -t sourceforts/steamcmd:latest
+  - popd
+  - pushd ubuntu-xenial
+  - docker build --build-arg steam_username=$STEAM_USERNAME --build-arg steam_password=$STEAM_PASSWORD -t sourceforts/steamcmd:ubuntu-xenial-$TRAVIS_BUILD_NUMBER .
+  - docker tag sourceforts/steamcmd:ubuntu-xenial-$TRAVIS_BUILD_NUMBER sourceforts/steamcmd:ubuntu-xenial
+  - popd
+  - pushd debian-stretch
+  - docker build --build-arg steam_username=$STEAM_USERNAME --build-arg steam_password=$STEAM_PASSWORD -t sourceforts/steamcmd:debian-stretch-$TRAVIS_BUILD_NUMBER .
+  - docker tag sourceforts/steamcmd:debian-stretch-$TRAVIS_BUILD_NUMBER -t sourceforts/steamcmd:debian-stretch
+  - docker tag sourceforts/steamcmd:debian-stretch-$TRAVIS_BUILD_NUMBER -t sourceforts/steamcmd:debian
+  - popd
+
+before_deploy:
+  - echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+
+deploy:
+  provider: script
+  script: bash .travisci/deploy.sh
+  on:
+    branch: master
+
+after_success:
+  - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
+  - chmod +x send.sh
+  - ./send.sh success $DISCORD_WEBHOOK_URL
+after_failure:
+  - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
+  - chmod +x send.sh
+  - ./send.sh failure $DISCORD_WEBHOOK_URL
