@@ -1,7 +1,7 @@
 version: 2
 
 jobs:
-  build:
+  build-debian:
     working_directory: /sourceforts-server
     docker:
       - image: docker
@@ -11,18 +11,39 @@ jobs:
           at: /sourceforts-server
       - checkout
       - run: |
-          docker build -t sourceforts/steamcmd:debian-$CIRCLE_BUILD_NUM -t sourceforts/steamcmd:debian -t sourceforts/steamcmd:latest .
+          docker build -t sourceforts/steamcmd:debian-stretch-$CIRCLE_BUILD_NUM -t sourceforts/steamcmd:debian-stretch .
           echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-          docker push sourceforts/steamcmd:debian-$CIRCLE_BUILD_NUM
+          docker push sourceforts/steamcmd:debian-stretch-$CIRCLE_BUILD_NUM
+          docker push sourceforts/steamcmd:debian-stretch
           docker push sourceforts/steamcmd:debian
+  build-ubuntu:
+    working_directory: /sourceforts-server
+    docker:
+      - image: docker
+    steps:
+      - setup_remote_docker
+      - attach_workspace:
+          at: /sourceforts-server
+      - checkout
+      - run: |
+          docker build -t sourceforts/steamcmd:ubuntu-xenial-$CIRCLE_BUILD_NUM -t sourceforts/steamcmd:ubuntu-xenial -t sourceforts/steamcmd:ubuntu -t sourceforts/steamcmd:latest .
+          echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+          docker push sourceforts/steamcmd:ubuntu-xenial-$CIRCLE_BUILD_NUM
+          docker push sourceforts/steamcmd:ubuntu-xenial
+          docker push sourceforts/steamcmd:ubuntu
           docker push sourceforts/steamcmd:latest
 
 workflows:
   version: 2
   main:
     jobs:
-      - build:
+      - build-ubuntu:
           context: sourceforts-server
           filters:
             branches:
               only: master
+      - build-debian:
+          context: sourceforts-server
+          filters:
+            branches:
+              only: debian
