@@ -1,7 +1,7 @@
 version: 2
 
 jobs:
-  build-debian:
+  build-debian-stretch:
     working_directory: /sourceforts-server
     docker:
       - image: docker
@@ -16,7 +16,7 @@ jobs:
           docker push sourceforts/steamcmd:debian-stretch-$CIRCLE_BUILD_NUM
           docker push sourceforts/steamcmd:debian-stretch
           docker push sourceforts/steamcmd:debian
-  build-ubuntu:
+  build-ubuntu-xenial:
     working_directory: /sourceforts-server
     docker:
       - image: docker
@@ -32,18 +32,37 @@ jobs:
           docker push sourceforts/steamcmd:ubuntu-xenial
           docker push sourceforts/steamcmd:ubuntu
           docker push sourceforts/steamcmd:latest
+  build-ubuntu-trusty:
+    working_directory: /sourceforts-server
+    docker:
+      - image: docker
+    steps:
+      - setup_remote_docker
+      - attach_workspace:
+          at: /sourceforts-server
+      - checkout
+      - run: |
+          docker build -t sourceforts/steamcmd:ubuntu-trusty-$CIRCLE_BUILD_NUM -t sourceforts/steamcmd:ubuntu-trusty .
+          echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+          docker push sourceforts/steamcmd:ubuntu-trusty-$CIRCLE_BUILD_NUM
+          docker push sourceforts/steamcmd:ubuntu-trusty
 
 workflows:
   version: 2
   main:
     jobs:
-      - build-ubuntu:
+      - build-ubuntu-xenial:
           context: sourceforts-server
           filters:
             branches:
               only: master
-      - build-debian:
+      - build-ubuntu-trusty:
           context: sourceforts-server
           filters:
             branches:
-              only: debian
+              only: ubuntu-trusty
+      - build-debian-stretch:
+          context: sourceforts-server
+          filters:
+            branches:
+              only: debian-stretch
