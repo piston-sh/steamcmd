@@ -3,17 +3,17 @@ services:
 
 script:
   - pushd ubuntu-trusty
-  - docker build --build-arg steam_username=$STEAM_USERNAME --build-arg steam_password=$STEAM_PASSWORD -t sourceforts/steamcmd:ubuntu-trusty-$TRAVIS_BUILD_NUMBER .
+  - docker build -t sourceforts/steamcmd:ubuntu-trusty-$TRAVIS_BUILD_NUMBER .
   - docker tag sourceforts/steamcmd:ubuntu-trusty-$TRAVIS_BUILD_NUMBER -t sourceforts/steamcmd:ubuntu-trusty
   - docker tag sourceforts/steamcmd:ubuntu-trusty-$TRAVIS_BUILD_NUMBER -t sourceforts/steamcmd:ubuntu
   - docker tag sourceforts/steamcmd:ubuntu-trusty-$TRAVIS_BUILD_NUMBER -t sourceforts/steamcmd:latest
   - popd
   - pushd ubuntu-xenial
-  - docker build --build-arg steam_username=$STEAM_USERNAME --build-arg steam_password=$STEAM_PASSWORD -t sourceforts/steamcmd:ubuntu-xenial-$TRAVIS_BUILD_NUMBER .
+  - docker build -t sourceforts/steamcmd:ubuntu-xenial-$TRAVIS_BUILD_NUMBER .
   - docker tag sourceforts/steamcmd:ubuntu-xenial-$TRAVIS_BUILD_NUMBER sourceforts/steamcmd:ubuntu-xenial
   - popd
   - pushd debian-stretch
-  - docker build --build-arg steam_username=$STEAM_USERNAME --build-arg steam_password=$STEAM_PASSWORD -t sourceforts/steamcmd:debian-stretch-$TRAVIS_BUILD_NUMBER .
+  - docker build -t sourceforts/steamcmd:debian-stretch-$TRAVIS_BUILD_NUMBER .
   - docker tag sourceforts/steamcmd:debian-stretch-$TRAVIS_BUILD_NUMBER -t sourceforts/steamcmd:debian-stretch
   - docker tag sourceforts/steamcmd:debian-stretch-$TRAVIS_BUILD_NUMBER -t sourceforts/steamcmd:debian
   - popd
