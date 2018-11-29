@@ -5,8 +5,6 @@ ENV STEAMCMD_DIR=/home/steam/steamcmd
 ENV STEAM_USER_DIR=/home/steam
 
 RUN apt-get update && apt-get install -y \
-    lib32gcc1 \
-    lib32stdc++6 \ 
     libstdc++6 \
     libncurses5 \
     net-tools \
