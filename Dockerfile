@@ -1,11 +1,10 @@
-FROM debian:stretch
+FROM ubuntu:xenial
 LABEL maintainer="admin@deniscraig.com"
 
 ENV STEAMCMD_DIR=/home/steam/steamcmd
 ENV STEAM_HOME_DIR=/home/steam
 
 RUN apt-get update && apt-get install -y \
-    lib32gcc1 \
     curl && \
     apt-get -y upgrade && \
     apt-get clean autoclean && \
