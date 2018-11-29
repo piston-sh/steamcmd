@@ -5,9 +5,11 @@ ENV STEAMCMD_DIR=/home/steam/steamcmd
 ENV STEAM_USER_DIR=/home/steam
 
 RUN apt-get update && apt-get install -y \
+    lib32gcc1 \
+    lib32stdc++6 \ 
     libstdc++6 \
-    libcurl3-gnutls \
     libncurses5 \
+    net-tools \
     curl && \
     rm -rf /var/lib/{apt,dpkg,cache,log}/
 
@@ -19,7 +21,7 @@ RUN mkdir -p $STEAM_USER_DIR/.steam
 
 # Download SteamCMD
 RUN cd $STEAMCMD_DIR && \
-        curl -o steamcmd_linux.tar.gz "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz" && \
+        curl -o steamcmd_linux.tar.gz "http://media.steampowered.com/client/steamcmd_linux.tar.gz" && \
         tar zxf steamcmd_linux.tar.gz && \
         rm steamcmd_linux.tar.gz
 
