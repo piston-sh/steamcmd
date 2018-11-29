@@ -11,7 +11,7 @@ jobs:
           at: /sourceforts-server
       - checkout
       - run: |
-          docker build -t sourceforts/steamcmd:debian-stretch-$CIRCLE_BUILD_NUM -t sourceforts/steamcmd:debian-stretch .
+          docker build -t sourceforts/steamcmd:debian-stretch-$CIRCLE_BUILD_NUM -t sourceforts/steamcmd:debian-stretch -t sourceforts/steamcmd:debian .
           echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
           docker push sourceforts/steamcmd:debian-stretch-$CIRCLE_BUILD_NUM
           docker push sourceforts/steamcmd:debian-stretch
