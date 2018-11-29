@@ -4,9 +4,9 @@ services:
 script:
   - pushd ubuntu-trusty
   - docker build -t sourceforts/steamcmd:ubuntu-trusty-$TRAVIS_BUILD_NUMBER .
-  - docker tag sourceforts/steamcmd:ubuntu-trusty-$TRAVIS_BUILD_NUMBER -t sourceforts/steamcmd:ubuntu-trusty
-  - docker tag sourceforts/steamcmd:ubuntu-trusty-$TRAVIS_BUILD_NUMBER -t sourceforts/steamcmd:ubuntu
-  - docker tag sourceforts/steamcmd:ubuntu-trusty-$TRAVIS_BUILD_NUMBER -t sourceforts/steamcmd:latest
+  - docker tag sourceforts/steamcmd:ubuntu-trusty-$TRAVIS_BUILD_NUMBER sourceforts/steamcmd:ubuntu-trusty
+  - docker tag sourceforts/steamcmd:ubuntu-trusty-$TRAVIS_BUILD_NUMBER sourceforts/steamcmd:ubuntu
+  - docker tag sourceforts/steamcmd:ubuntu-trusty-$TRAVIS_BUILD_NUMBER sourceforts/steamcmd:latest
   - popd
   - pushd ubuntu-xenial
   - docker build -t sourceforts/steamcmd:ubuntu-xenial-$TRAVIS_BUILD_NUMBER .
@@ -14,8 +14,8 @@ script:
   - popd
   - pushd debian-stretch
   - docker build -t sourceforts/steamcmd:debian-stretch-$TRAVIS_BUILD_NUMBER .
-  - docker tag sourceforts/steamcmd:debian-stretch-$TRAVIS_BUILD_NUMBER -t sourceforts/steamcmd:debian-stretch
-  - docker tag sourceforts/steamcmd:debian-stretch-$TRAVIS_BUILD_NUMBER -t sourceforts/steamcmd:debian
+  - docker tag sourceforts/steamcmd:debian-stretch-$TRAVIS_BUILD_NUMBER sourceforts/steamcmd:debian-stretch
+  - docker tag sourceforts/steamcmd:debian-stretch-$TRAVIS_BUILD_NUMBER sourceforts/steamcmd:debian
   - popd
 
 before_deploy:
