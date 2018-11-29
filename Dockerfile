@@ -1,4 +1,4 @@
-FROM ubuntu:xenial
+FROM debian:stretch
 LABEL maintainer="admin@deniscraig.com"
 
 ENV STEAMCMD_DIR=/home/steam/steamcmd
