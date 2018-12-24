@@ -3,10 +3,10 @@ services:
 
 script:
   - pushd ubuntu-xenial
-  - docker build -t sourceforts/steamcmd:ubuntu-xenial-$TRAVIS_BUILD_NUMBER .
-  - docker tag sourceforts/steamcmd:ubuntu-xenial-$TRAVIS_BUILD_NUMBER sourceforts/steamcmd:ubuntu-xenial
-  - docker tag sourceforts/steamcmd:ubuntu-xenial-$TRAVIS_BUILD_NUMBER sourceforts/steamcmd:ubuntu
-  - docker tag sourceforts/steamcmd:ubuntu-xenial-$TRAVIS_BUILD_NUMBER sourceforts/steamcmd:latest
+  - docker build -t pistonsh/steamcmd:ubuntu-xenial-$TRAVIS_BUILD_NUMBER .
+  - docker tag pistonsh/steamcmd:ubuntu-xenial-$TRAVIS_BUILD_NUMBER pistonsh/steamcmd:ubuntu-xenial
+  - docker tag pistonsh/steamcmd:ubuntu-xenial-$TRAVIS_BUILD_NUMBER pistonsh/steamcmd:ubuntu
+  - docker tag pistonsh/steamcmd:ubuntu-xenial-$TRAVIS_BUILD_NUMBER pistonsh/steamcmd:latest
   - popd
 before_deploy:
   - echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin

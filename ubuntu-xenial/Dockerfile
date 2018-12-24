@@ -1,5 +1,5 @@
 FROM 32bit/ubuntu:16.04
-LABEL maintainer="admin@deniscraig.com"
+LABEL maintainer="denis@piston.sh"
 
 ENV STEAMCMD_DIR=/home/steam/steamcmd
 ENV STEAM_USER_DIR=/home/steam
